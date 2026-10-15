@@ -4,9 +4,12 @@
    and copy out, so the four sidebars never disagree.
 
    It picks the installer for the device you are on:
-     Windows -> .exe   Mac -> .dmg   Android -> .apk   iPhone/iPad -> the download page
-   and hides itself inside the Megawide Apps app (its user agent carries
+     Windows -> .exe   Mac -> .dmg
+   DESKTOP ONLY (2026-10-15): on a phone or tablet (Android, iPhone, iPad) and on
+   anything it cannot identify, NO button is shown — the phone apps are paused.
+   It also hides itself inside the Megawide Apps app (its user agent carries
    "MegawideApps"), where offering the app would make no sense.
+   To bring phones back, add their keys to SHOW_ON.
 
    Placement: the first row of the sidebar's sibling-app group (.pd-nav-foot) in
    Planning, Bids and Engineering, and just above the sidebar footer in
@@ -24,6 +27,10 @@
      the itms-services:// install link for the signed build. Until then iPhone
      users are sent to the download page, which explains. */
   var IOS_INSTALL_URL = '';
+
+  /* The devices that get a button. Everything else (android, ios, other, inapp)
+     gets nothing. */
+  var SHOW_ON = { windows: true, mac: true };
 
   var TARGETS = {
     windows: { label: 'Download for Windows', url: LATEST + 'Megawide-Apps-Setup.exe', file: true },
@@ -64,9 +71,11 @@
     return a;
   }
 
+  function shows(device) { return SHOW_ON[device] === true; }
+
   function mountInto(doc) {
     var device = current();
-    if (device === 'inapp') return;
+    if (!shows(device)) return;
     /* Planning, Bids, Engineering: first row of the sibling-app group. */
     var foots = doc.querySelectorAll('.pd-nav-foot');
     for (var i = 0; i < foots.length; i++) {
@@ -108,7 +117,7 @@
   }
 
   function start() {
-    if (typeof document === 'undefined' || current() === 'inapp') return;
+    if (typeof document === 'undefined' || !shows(current())) return;
     injectCss(document);
     mountInto(document);
     if (root.MutationObserver) {
@@ -121,7 +130,7 @@
     }
   }
 
-  var api = { detect: detect, current: current, targets: TARGETS, page: PAGE, repo: REPO, mount: start };
+  var api = { detect: detect, current: current, shows: shows, targets: TARGETS, page: PAGE, repo: REPO, mount: start };
   root.MegawideDownload = api;
   if (typeof module !== 'undefined' && module.exports) { module.exports = api; return; }
   if (root.__MEGAWIDE_DOWNLOAD_NO_AUTOMOUNT) return;   // the download page renders its own UI

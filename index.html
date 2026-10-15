@@ -33,7 +33,7 @@
   .card p, .card li { color:var(--text-2); margin:6px 0; }
   .card ol { padding-left:20px; margin:6px 0; }
   .row { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
-  .row a { color:var(--red-ink); font-weight:600; }
+  .row a, .card a { color:var(--red-ink); font-weight:600; }
   .you { font-size:.72rem; font-weight:700; color:var(--red-ink); border:1px solid currentColor; border-radius:999px; padding:1px 8px; margin-left:6px; }
   .why { border-left:3px solid var(--red); }
 </style>
@@ -55,29 +55,21 @@
 
   <section class="card" id="mac">
     <div class="row"><h2>Mac</h2><a href="#" data-dl="mac">Download .dmg</a></div>
-    <p>Open the file and drag Megawide Apps into Applications. The first time, <b>right-click the app &rarr; Open</b>, then Open again.</p>
+    <p>Open the file and drag Megawide Apps into Applications. The first time you open it, macOS says it cannot check the developer: open <b>System Settings &rarr; Privacy &amp; Security</b>, scroll down and click <b>Open Anyway</b>. (On older macOS, <b>right-click the app &rarr; Open</b> does the same.)</p>
   </section>
 
-  <section class="card" id="android">
-    <div class="row"><h2>Android</h2><a href="#" data-dl="android">Download .apk</a></div>
+  <!-- Desktop only for now (2026-10-15): the Android and iPhone apps are paused.
+       Phones use the web apps from the home screen instead. -->
+  <section class="card why" id="phone">
+    <h2>Phone or tablet</h2>
+    <p>The Megawide Apps app is for Windows and Mac only for now. On a phone or tablet, add each app to your home screen. It opens full screen, like an app, and remembers your login:</p>
     <ol>
-      <li>Tap the download link above and open the file when it finishes.</li>
-      <li>If asked, allow your browser to <b>install unknown apps</b> (Settings shows the switch).</li>
-      <li>Tap <b>Install</b>. To update later, download and install again — your logins stay.</li>
-    </ol>
-  </section>
-
-  <section class="card why" id="iphone">
-    <div class="row"><h2>iPhone &amp; iPad</h2><span id="ios-link"></span></div>
-    <p id="ios-wait">The iPhone app is not available to download yet — Apple only allows a link install once the company's Apple Developer account is set up.</p>
-    <p>Until then, add each app to your home screen. It opens full screen, like an app, and remembers your login:</p>
-    <ol>
-      <li>Open the app in <b>Safari</b>:
+      <li>Open the app in your browser (<b>Safari</b> on iPhone and iPad, <b>Chrome</b> on Android):
         <a href="https://pmodepartment.github.io/planning-app/">Planners Dashboard</a>,
         <a href="https://pmodepartment.github.io/prc-app/">Procurement</a>,
         <a href="https://pmodepartment.github.io/engineering-app/">Engineering</a>,
         <a href="https://pmodepartment.github.io/bid-app/">Bids</a>.</li>
-      <li>Tap the <b>Share</b> button, then <b>Add to Home Screen</b>.</li>
+      <li>iPhone and iPad: tap <b>Share</b>, then <b>Add to Home Screen</b>.<br>Android: tap the <b>&#8942;</b> menu, then <b>Add to Home screen</b>.</li>
     </ol>
   </section>
 
@@ -90,21 +82,16 @@
   var D = window.MegawideDownload, you = D.current(), T = D.targets;
   document.querySelectorAll('[data-dl]').forEach(function (a) { a.href = T[a.getAttribute('data-dl')].url; });
   document.getElementById('all').href = D.repo + '/releases';
-  var iosReady = T.ios.file;
-  if (iosReady) {
-    document.getElementById('ios-wait').hidden = true;
-    document.getElementById('ios-link').innerHTML = '<a href="' + T.ios.url + '">Install</a>';
-  }
-  var key = { windows: 'windows', mac: 'mac', android: 'android', ios: 'iphone' }[you];
+  var key = { windows: 'windows', mac: 'mac', android: 'phone', ios: 'phone' }[you];
   var p = document.getElementById('primary');
   if (you === 'inapp') {
     p.innerHTML = '<p class="small">You are already using the Megawide Apps app.</p>';
-  } else if (you === 'ios' && !iosReady) {
-    p.innerHTML = '<a class="btn" href="#iphone">How to install on iPhone</a>';
-  } else if (T[you] && T[you].file) {
-    p.innerHTML = '<a class="btn" href="' + T[you].url + '">' + T[you].label + '</a><span class="small">Detected from this device. Other devices are listed below.</span>';
+  } else if (D.shows(you)) {
+    p.innerHTML = '<a class="btn" href="' + T[you].url + '">' + T[you].label + '</a><span class="small">Detected from this device. The other computer is listed below.</span>';
+  } else if (key === 'phone') {
+    p.innerHTML = '<span class="small">The app is for Windows and Mac. On this device, use the home-screen steps below.</span>';
   } else {
-    p.innerHTML = '<span class="small">Choose your device below.</span>';
+    p.innerHTML = '<span class="small">Choose your computer below.</span>';
   }
   if (key) {
     var sec = document.getElementById(key);
