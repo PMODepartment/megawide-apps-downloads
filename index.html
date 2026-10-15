@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light dark">
-<title>Megawide Apps — Download</title>
+<title>Megawide App Collection (MAC) — Download</title>
 <link rel="icon" type="image/png" href="icon.png">
 <link rel="apple-touch-icon" href="icon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
@@ -42,7 +42,7 @@
 <main class="wrap">
   <header>
     <img src="icon.png" alt="">
-    <h1>Megawide Apps</h1>
+    <h1>Megawide App Collection (MAC)</h1>
     <p class="lede">Planners Dashboard, Procurement, Engineering and Bids in one app. Each app always opens its latest version and remembers your login.</p>
   </header>
 
@@ -55,14 +55,14 @@
 
   <section class="card" id="mac">
     <div class="row"><h2>Mac</h2><a href="#" data-dl="mac">Download .dmg</a></div>
-    <p>Open the file and drag Megawide Apps into Applications. The first time you open it, macOS says it cannot check the developer: open <b>System Settings &rarr; Privacy &amp; Security</b>, scroll down and click <b>Open Anyway</b>. (On older macOS, <b>right-click the app &rarr; Open</b> does the same.)</p>
+    <p>Open the file and drag Megawide App Collection (MAC) into Applications. The first time you open it, macOS says it cannot check the developer: open <b>System Settings &rarr; Privacy &amp; Security</b>, scroll down and click <b>Open Anyway</b>. (On older macOS, <b>right-click the app &rarr; Open</b> does the same.)</p>
   </section>
 
   <!-- Desktop only for now (2026-10-15): the Android and iPhone apps are paused.
        Phones use the web apps from the home screen instead. -->
   <section class="card why" id="phone">
     <h2>Phone or tablet</h2>
-    <p>The Megawide Apps app is for Windows and Mac only for now. On a phone or tablet, add each app to your home screen. It opens full screen, like an app, and remembers your login:</p>
+    <p>Megawide App Collection (MAC) is for Windows and Mac only for now. On a phone or tablet, add each app to your home screen. It opens full screen, like an app, and remembers your login:</p>
     <ol>
       <li>Open the app in your browser (<b>Safari</b> on iPhone and iPad, <b>Chrome</b> on Android):
         <a href="https://pmodepartment.github.io/planning-app/">Planners Dashboard</a>,
@@ -85,7 +85,7 @@
   var key = { windows: 'windows', mac: 'mac', android: 'phone', ios: 'phone' }[you];
   var p = document.getElementById('primary');
   if (you === 'inapp') {
-    p.innerHTML = '<p class="small">You are already using the Megawide Apps app.</p>';
+    p.innerHTML = '<p class="small">You are already using Megawide App Collection (MAC).</p>';
   } else if (D.shows(you)) {
     p.innerHTML = '<a class="btn" href="' + T[you].url + '">' + T[you].label + '</a><span class="small">Detected from this device. The other computer is listed below.</span>';
   } else if (key === 'phone') {

@@ -7,7 +7,7 @@
      Windows -> .exe   Mac -> .dmg
    DESKTOP ONLY (2026-10-15): on a phone or tablet (Android, iPhone, iPad) and on
    anything it cannot identify, NO button is shown — the phone apps are paused.
-   It also hides itself inside the Megawide Apps app (its user agent carries
+   It also hides itself inside Megawide App Collection (MAC) (its user agent carries
    "MegawideApps"), where offering the app would make no sense.
    To bring phones back, add their keys to SHOW_ON.
 
@@ -33,8 +33,8 @@
   var SHOW_ON = { windows: true, mac: true };
 
   var TARGETS = {
-    windows: { label: 'Download for Windows', url: LATEST + 'Megawide-Apps-Setup.exe', file: true },
-    mac:     { label: 'Download for Mac',     url: LATEST + 'Megawide-Apps.dmg',       file: true },
+    windows: { label: 'Download for Windows', url: LATEST + 'Megawide-App-Collection-Setup.exe', file: true },
+    mac:     { label: 'Download for Mac',     url: LATEST + 'Megawide-App-Collection.dmg', file: true },
     android: { label: 'Download for Android', url: LATEST + 'Megawide-Apps.apk',       file: true },
     ios:     { label: 'Get the iPhone app',   url: IOS_INSTALL_URL || PAGE + '#iphone', file: !!IOS_INSTALL_URL },
     other:   { label: 'Download the app',     url: PAGE,                                 file: false }
@@ -67,7 +67,7 @@
     a.className = cls;
     a.href = t.url;
     a.setAttribute('data-mwdl', device);
-    a.title = t.label + ' — Megawide Apps: all four apps in one app';
+    a.title = t.label + ' — Megawide App Collection (MAC): all four apps in one app';
     if (!t.file) { a.target = '_blank'; a.rel = 'noopener'; }
     a.innerHTML = inner(t.label);
     return a;
