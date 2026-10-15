@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Megawide Apps — Download</title>
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+<style>
+  :root { --red:#EE3124; --red-ink:#C42127; --bg:#F5F5F5; --surface:#fff; --border:rgba(0,0,0,.14);
+          --text:#231F20; --text-2:#4A4747; --hint:#6E6C6C; }
+  @media (prefers-color-scheme: dark) {
+    :root { --red-ink:#FF8B80; --bg:#1C1C1C; --surface:#262626; --border:rgba(255,255,255,.16);
+            --text:#F1F1F1; --text-2:#CFCDCD; --hint:#9D9B9B; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:15px/1.55 'Montserrat',-apple-system,'Segoe UI',Roboto,sans-serif;
+         padding: env(safe-area-inset-top) 16px env(safe-area-inset-bottom); -webkit-font-smoothing:antialiased; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 40px 0 32px; }
+  header { text-align:center; }
+  header img { width:72px; height:72px; border-radius:18px; }
+  h1 { font-size:1.7rem; margin:14px 0 4px; color:var(--red-ink); }
+  .lede { color:var(--text-2); margin:0 auto 24px; max-width:460px; }
+  .primary { display:flex; flex-direction:column; align-items:center; gap:8px; margin:0 0 28px; }
+  .btn { display:inline-flex; align-items:center; gap:10px; background:var(--red); color:#fff; text-decoration:none;
+         font-weight:600; padding:13px 26px; border-radius:10px; min-height:48px; }
+  .btn:hover { background:#C42127; }
+  .btn:focus-visible, .row a:focus-visible { outline:2px solid var(--red); outline-offset:3px; }
+  .small { color:var(--hint); font-size:.85rem; }
+  .card { background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px; margin:0 0 14px; }
+  .card h2 { font-size:1.05rem; margin:0 0 6px; }
+  .card p, .card li { color:var(--text-2); margin:6px 0; }
+  .card ol { padding-left:20px; margin:6px 0; }
+  .row { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  .row a { color:var(--red-ink); font-weight:600; }
+  .you { font-size:.72rem; font-weight:700; color:var(--red-ink); border:1px solid currentColor; border-radius:999px; padding:1px 8px; margin-left:6px; }
+  .why { border-left:3px solid var(--red); }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <img src="icon.png" alt="">
+    <h1>Megawide Apps</h1>
+    <p class="lede">Planners Dashboard, Procurement, Engineering and Bids in one app. Each app always opens its latest version and remembers your login.</p>
+  </header>
+
+  <div class="primary" id="primary"></div>
+
+  <section class="card" id="windows">
+    <div class="row"><h2>Windows</h2><a href="#" data-dl="windows">Download .exe</a></div>
+    <p>Run the installer. If Windows SmartScreen shows "Windows protected your PC", choose <b>More info</b> &rarr; <b>Run anyway</b>. The app then keeps itself up to date.</p>
+  </section>
+
+  <section class="card" id="mac">
+    <div class="row"><h2>Mac</h2><a href="#" data-dl="mac">Download .dmg</a></div>
+    <p>Open the file and drag Megawide Apps into Applications. The first time, <b>right-click the app &rarr; Open</b>, then Open again.</p>
+  </section>
+
+  <section class="card" id="android">
+    <div class="row"><h2>Android</h2><a href="#" data-dl="android">Download .apk</a></div>
+    <ol>
+      <li>Tap the download link above and open the file when it finishes.</li>
+      <li>If asked, allow your browser to <b>install unknown apps</b> (Settings shows the switch).</li>
+      <li>Tap <b>Install</b>. To update later, download and install again — your logins stay.</li>
+    </ol>
+  </section>
+
+  <section class="card why" id="iphone">
+    <div class="row"><h2>iPhone &amp; iPad</h2><span id="ios-link"></span></div>
+    <p id="ios-wait">The iPhone app is not available to download yet — Apple only allows a link install once the company's Apple Developer account is set up.</p>
+    <p>Until then, add each app to your home screen. It opens full screen, like an app, and remembers your login:</p>
+    <ol>
+      <li>Open the app in <b>Safari</b>:
+        <a href="https://pmodepartment.github.io/planning-app/">Planners Dashboard</a>,
+        <a href="https://pmodepartment.github.io/prc-app/">Procurement</a>,
+        <a href="https://pmodepartment.github.io/engineering-app/">Engineering</a>,
+        <a href="https://pmodepartment.github.io/bid-app/">Bids</a>.</li>
+      <li>Tap the <b>Share</b> button, then <b>Add to Home Screen</b>.</li>
+    </ol>
+  </section>
+
+  <p class="small" style="text-align:center">All releases: <a id="all" href="#" style="color:var(--red-ink)">GitHub Releases</a></p>
+</main>
+<script>window.__MEGAWIDE_DOWNLOAD_NO_AUTOMOUNT = true;</script>
+<script src="app-download.js"></script>
+<script>
+(function () {
+  var D = window.MegawideDownload, you = D.current(), T = D.targets;
+  document.querySelectorAll('[data-dl]').forEach(function (a) { a.href = T[a.getAttribute('data-dl')].url; });
+  document.getElementById('all').href = D.repo + '/releases';
+  var iosReady = T.ios.file;
+  if (iosReady) {
+    document.getElementById('ios-wait').hidden = true;
+    document.getElementById('ios-link').innerHTML = '<a href="' + T.ios.url + '">Install</a>';
+  }
+  var key = { windows: 'windows', mac: 'mac', android: 'android', ios: 'iphone' }[you];
+  var p = document.getElementById('primary');
+  if (you === 'inapp') {
+    p.innerHTML = '<p class="small">You are already using the Megawide Apps app.</p>';
+  } else if (you === 'ios' && !iosReady) {
+    p.innerHTML = '<a class="btn" href="#iphone">How to install on iPhone</a>';
+  } else if (T[you] && T[you].file) {
+    p.innerHTML = '<a class="btn" href="' + T[you].url + '">' + T[you].label + '</a><span class="small">Detected from this device. Other devices are listed below.</span>';
+  } else {
+    p.innerHTML = '<span class="small">Choose your device below.</span>';
+  }
+  if (key) {
+    var sec = document.getElementById(key);
+    sec.querySelector('h2').insertAdjacentHTML('beforeend', '<span class="you">This device</span>');
+    sec.parentNode.insertBefore(sec, document.querySelector('.card'));   // your device first
+  }
+})();
+</script>
+</body>
+</html>
