@@ -44,8 +44,10 @@
     ua = ua || ''; platform = platform || '';
     if (/MegawideApps/.test(ua)) return 'inapp';
     if (/Android/i.test(ua)) return 'android';
-    /* iPadOS reports itself as a Mac; a touch screen gives it away. */
-    if (/iPhone|iPad|iPod/.test(ua) || (/Mac/.test(platform) && touchPoints > 1)) return 'ios';
+    /* iPadOS reports itself as a Mac; a touch screen gives it away (no Mac has
+       one). Case-insensitive: Chromium's userAgentData reports 'macOS', which a
+       case-sensitive /Mac/ missed, so a touch "Mac" was offered the .dmg. */
+    if (/iPhone|iPad|iPod/.test(ua) || ((/mac/i.test(platform) || /Macintosh/.test(ua)) && touchPoints > 1)) return 'ios';
     if (/Win/i.test(platform) || /Windows/.test(ua)) return 'windows';
     if (/Mac/i.test(platform) || /Mac OS X/.test(ua)) return 'mac';
     return 'other';
