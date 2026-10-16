@@ -1,4 +1,4 @@
-/* "Download the app" — one file, copied unchanged into all four web apps
+/* "Download" sidebar button — one file, copied unchanged into all four web apps
    (assets/js/app-download.js) and used by the download page itself.
    Canonical copy: PMODepartment/megawide-apps (private) docs/app-download.js — edit there
    and copy out, so the four sidebars never disagree.
@@ -32,12 +32,15 @@
      gets nothing. */
   var SHOW_ON = { windows: true, mac: true };
 
+  /* label: the sidebar button — just "Download" (the button only ever offers
+     the installer for the computer you are on). long: the download page's own
+     big button, where saying which computer helps. */
   var TARGETS = {
-    windows: { label: 'Download for Windows', url: LATEST + 'Megawide-App-Collection-Setup.exe', file: true },
-    mac:     { label: 'Download for Mac',     url: LATEST + 'Megawide-App-Collection.dmg', file: true },
-    android: { label: 'Download for Android', url: LATEST + 'Megawide-Apps.apk',       file: true },
-    ios:     { label: 'Get the iPhone app',   url: IOS_INSTALL_URL || PAGE + '#iphone', file: !!IOS_INSTALL_URL },
-    other:   { label: 'Download the app',     url: PAGE,                                 file: false }
+    windows: { label: 'Download', long: 'Download for Windows', url: LATEST + 'Megawide-App-Collection-Setup.exe', file: true },
+    mac:     { label: 'Download', long: 'Download for Mac',     url: LATEST + 'Megawide-App-Collection.dmg', file: true },
+    android: { label: 'Download', long: 'Download for Android', url: LATEST + 'Megawide-Apps.apk',       file: true },
+    ios:     { label: 'Download', long: 'Get the iPhone app',   url: IOS_INSTALL_URL || PAGE + '#iphone', file: !!IOS_INSTALL_URL },
+    other:   { label: 'Download', long: 'Download the app',     url: PAGE,                                 file: false }
   };
 
   function detect(ua, platform, touchPoints) {
@@ -67,7 +70,7 @@
     a.className = cls;
     a.href = t.url;
     a.setAttribute('data-mwdl', device);
-    a.title = t.label + ' — Megawide App Collection (MAC): all four apps in one app';
+    a.title = 'Megawide App Collection (MAC): all four apps in one desktop app';
     if (!t.file) { a.target = '_blank'; a.rel = 'noopener'; }
     a.innerHTML = inner(t.label);
     return a;
@@ -104,12 +107,11 @@
     if (doc.getElementById('mwdl-css')) return;
     var s = doc.createElement('style');
     s.id = 'mwdl-css';
-    /* Same row as its neighbours; a brand-red icon is the only accent, so it
+    /* Exactly like its neighbours — same white icon and text, no accent — so it
        reads as part of the group rather than as an advert. */
     s.textContent =
-      '.mwdl-row svg{display:block;color:#FF7A6E}' +
-      '.mwdl-row .pd-navico{opacity:1!important;display:inline-flex}' +
-      '.mwdl-row .ti-download{color:#FF7A6E}' +
+      '.mwdl-row svg{display:block}' +
+      '.mwdl-row .pd-navico{display:inline-flex}' +
       /* Pinned to the bottom of Procurement's rail, directly above its footer.
          ⚠️ The footer carries margin-top:auto too; two auto margins would SPLIT
          the free space and float this mid-rail, so the footer's is zeroed. */

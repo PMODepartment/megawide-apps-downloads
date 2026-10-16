@@ -87,7 +87,7 @@
   if (you === 'inapp') {
     p.innerHTML = '<p class="small">You are already using Megawide App Collection (MAC).</p>';
   } else if (D.shows(you)) {
-    p.innerHTML = '<a class="btn" href="' + T[you].url + '">' + T[you].label + '</a><span class="small">Detected from this device. The other computer is listed below.</span>';
+    p.innerHTML = '<a class="btn" href="' + T[you].url + '">' + (T[you].long || T[you].label) + '</a><span class="small">Detected from this device. The other computer is listed below.</span>';
   } else if (key === 'phone') {
     p.innerHTML = '<span class="small">The app is for Windows and Mac. On this device, use the home-screen steps below.</span>';
   } else {
